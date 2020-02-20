@@ -3,8 +3,12 @@ import ReactDOM from "react-dom";
 import cls from "classnames";
 
 import "./style.less";
-import { dragEventMap, resizeControlHandler, bindEvent, unBindEvent } from "./utils";
-import { Point, Size } from "./types";
+import { DRAG_EVENT_MAP, resizeControlHandler, bindEvent, unBindEvent } from "./utils";
+import Archor from "../Archor";
+import { DragableContext } from "./context";
+import { Point } from "./types";
+
+const { DRAG_MOVING, DRAG_STOP } = DRAG_EVENT_MAP;
 
 const defaultProps = {
   position: { x: 0, y: 0 },
@@ -23,11 +27,6 @@ export interface DragableState {
   isActive: boolean; // 组件激活选中状态
 
   moveStartPositon: Point; // 移动开始时,鼠标的位置
-
-  resizeNodePosition: Point; // 变形开始时，组件的位置
-  resizeStartPosition: Point; // 变形开始时 鼠标的位置
-  resizeDirection: string; // 变形的方向
-  resizeStartSize: Size; //变形开始时组件的大小
 }
 
 export default class Dragable extends Component<DragableProps, DragableState> {
@@ -48,11 +47,7 @@ export default class Dragable extends Component<DragableProps, DragableState> {
       },
       //resize
       width: width as number,
-      height: height as number,
-      resizeNodePosition: position as Point,
-      resizeStartPosition: { x: 0, y: 0 },
-      resizeDirection: "",
-      resizeStartSize: { width: width || 0, height: height || 0 }
+      height: height as number
     };
   }
 
@@ -66,8 +61,8 @@ export default class Dragable extends Component<DragableProps, DragableState> {
   }
 
   componentWillUnmount() {
-    unBindEvent(document, dragEventMap.dragMovingEvent, this.handleDragMove);
-    unBindEvent(document, dragEventMap.dragStopEvent, this.handleDragStop);
+    unBindEvent(document, DRAG_MOVING, this.handleDragMove);
+    unBindEvent(document, DRAG_STOP, this.handleDragStop);
   }
 
   /**
@@ -126,8 +121,8 @@ export default class Dragable extends Component<DragableProps, DragableState> {
       moveStartPositon: { x: event.clientX - position.x, y: event.clientY - position.y }
     }));
 
-    bindEvent(document, dragEventMap.dragMovingEvent, this.handleDragMove);
-    bindEvent(document, dragEventMap.dragStopEvent, this.handleDragStop);
+    bindEvent(document, DRAG_MOVING, this.handleDragMove);
+    bindEvent(document, DRAG_STOP, this.handleDragStop);
   };
 
   /**
@@ -136,8 +131,8 @@ export default class Dragable extends Component<DragableProps, DragableState> {
    * @memberof Dragable
    */
   handleDragStop = () => {
-    unBindEvent(document, dragEventMap.dragMovingEvent, this.handleDragMove);
-    unBindEvent(document, dragEventMap.dragStopEvent, this.handleDragStop);
+    unBindEvent(document, DRAG_MOVING, this.handleDragMove);
+    unBindEvent(document, DRAG_STOP, this.handleDragStop);
   };
 
   onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -154,21 +149,23 @@ export default class Dragable extends Component<DragableProps, DragableState> {
     const { children } = this.props;
     const { position, isActive, width, height } = this.state;
     return (
-      <div
-        onMouseDown={this.onMouseDown}
-        className={cls("dragable", { "dragable-active": isActive })}
-        style={{ left: position.x, top: position.y, width, height }}>
-        {this.renderResizeControl(isActive)}
-        {React.Children.map(children, (child) =>
-          React.cloneElement(child as React.ReactElement, {
-            style: {
-              ...(React.isValidElement(child) ? child.props.style : {}),
-              width,
-              height
-            }
-          })
-        )}
-      </div>
+      <DragableContext.Provider value={{ position, width, height }}>
+        <div
+          onMouseDown={this.onMouseDown}
+          className={cls("dragable", { "dragable-active": isActive })}
+          style={{ left: position.x, top: position.y, width, height }}>
+          {this.renderResizeControl(isActive)}
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child as React.ReactElement, {
+              style: {
+                ...(React.isValidElement(child) ? child.props.style : {}),
+                width,
+                height
+              }
+            })
+          )}
+        </div>
+      </DragableContext.Provider>
     );
   }
 
@@ -180,46 +177,12 @@ export default class Dragable extends Component<DragableProps, DragableState> {
     return (
       isActive &&
       Object.keys(resizeControlHandler).map((control: string) => (
-        <i
-          key={control}
-          className={cls("dragable-resize", `dragable-resize-${control}`)}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            this.handleResizeStart(e, control);
-          }}
-          style={{ cursor: `${control}-resize` }}></i>
+        <Archor key={control} direction={control} onMoving={this.handleArchorMoving} />
       ))
     );
   }
 
-  handleResizeStart = (e: React.MouseEvent<HTMLElement, MouseEvent>, direction: string) => {
-    const event = e.nativeEvent;
-
-    this.setState(({ width, height, position }) => ({
-      resizeNodePosition: position,
-      resizeStartPosition: { x: event.clientX, y: event.clientY },
-      resizeDirection: direction,
-      resizeStartSize: { width, height }
-    }));
-
-    bindEvent(document, dragEventMap.dragMovingEvent, this.handleResizeMove);
-    bindEvent(document, dragEventMap.dragStopEvent, this.handleResizeStop);
-  };
-
-  handleResizeMove: EventListener = (e) => {
-    const event = e as MouseEvent;
-
-    this.setState(({ resizeStartPosition, resizeDirection, resizeStartSize, resizeNodePosition }) =>
-      resizeControlHandler[resizeDirection](
-        { x: event.clientX - resizeStartPosition.x, y: event.clientY - resizeStartPosition.y },
-        resizeStartSize,
-        resizeNodePosition
-      )
-    );
-  };
-
-  handleResizeStop = () => {
-    unBindEvent(document, dragEventMap.dragMovingEvent, this.handleResizeMove);
-    unBindEvent(document, dragEventMap.dragStopEvent, this.handleResizeStop);
+  handleArchorMoving = (options: Pick<DragableState, "position" | "width" | "height">) => {
+    this.setState(() => options);
   };
 }

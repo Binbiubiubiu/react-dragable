@@ -4,13 +4,13 @@ import { Point, Size } from "./types";
 /**
  *  拖拽事件
  */
-export const dragEventMap = {
-  dragStartEvent: "mousedown",
-  dragMovingEvent: "mousemove",
-  dragStopEvent: "mouseup"
+export const DRAG_EVENT_MAP = {
+  DRAG_START: "mousedown",
+  DRAG_MOVING: "mousemove",
+  DRAG_STOP: "mouseup"
 };
 
-type resizeControlHandlerCb = (
+type ResizeControlHandlerCb = (
   movedDistance: Point,
   lastSize: Size,
   lastPosition: Point
@@ -20,7 +20,7 @@ type resizeControlHandlerCb = (
  * 控制变形方向
  */
 export const resizeControlHandler: {
-  [prop: string]: resizeControlHandlerCb;
+  [prop: string]: ResizeControlHandlerCb;
 } = {
   nw: (movedDistance, { width, height }, lastPosition) => {
     const computedWidth = width - movedDistance.x;

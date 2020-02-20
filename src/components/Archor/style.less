@@ -1,0 +1,47 @@
+@archor-size  : 10px;
+@archor-border: 1px solid #f00;
+
+.archor {
+    position        : absolute;
+    width           : @archor-size;
+    height          : @archor-size;
+    background-color: #fff;
+    border          : @archor-border;
+    box-sizing      : border-box;
+}
+
+.archor-nw,
+.archor-n,
+.archor-ne {
+    top: -@archor-size / 2;
+}
+
+.archor-sw,
+.archor-s,
+.archor-se {
+    bottom: -@archor-size / 2;
+}
+
+.archor-nw,
+.archor-w,
+.archor-sw {
+    left: -@archor-size / 2;
+}
+
+.archor-ne,
+.archor-e,
+.archor-se {
+    right: -@archor-size / 2;
+}
+
+.archor-n,
+.archor-s {
+    left     : 50%;
+    transform: translate3d(-50%, 0, 0);
+}
+
+.archor-w,
+.archor-e {
+    top      : 50%;
+    transform: translate3d(0, -50%, 0);
+}
