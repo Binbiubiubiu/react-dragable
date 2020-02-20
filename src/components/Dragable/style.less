@@ -1,0 +1,58 @@
+@dragable-resize-size: 10px;
+@dragable-active-border: 1px solid #f00;
+
+.dragable {
+  position: absolute;
+  user-select: none;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+
+.dragable-active {
+  border: @dragable-active-border;
+}
+
+.dragable-resize {
+  position: absolute;
+  width: @dragable-resize-size;
+  height: @dragable-resize-size;
+  background-color: #fff;
+  border: @dragable-active-border;
+  box-sizing: border-box;
+}
+
+.dragable-resize-nw,
+.dragable-resize-n,
+.dragable-resize-ne {
+  top: -@dragable-resize-size / 2;
+}
+
+.dragable-resize-sw,
+.dragable-resize-s,
+.dragable-resize-se {
+  bottom: -@dragable-resize-size / 2;
+}
+
+.dragable-resize-nw,
+.dragable-resize-w,
+.dragable-resize-sw {
+  left: -@dragable-resize-size / 2;
+}
+
+.dragable-resize-ne,
+.dragable-resize-e,
+.dragable-resize-se {
+  right: -@dragable-resize-size / 2;
+}
+
+.dragable-resize-n,
+.dragable-resize-s {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}
+
+.dragable-resize-w,
+.dragable-resize-e {
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+}

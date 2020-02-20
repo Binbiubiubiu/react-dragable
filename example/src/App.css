@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+}
+
+.test-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 200px;
+  height: 200px;
+}

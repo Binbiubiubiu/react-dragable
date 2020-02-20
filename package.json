@@ -1,0 +1,63 @@
+{
+  "name": "react-dragable",
+  "version": "0.0.1",
+  "description": "a tool for dargging",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "unpkg": "dist/react-dragable.umd.min.js",
+  "scripts": {
+    "build": "father build",
+    "doc:dev": "father doc dev",
+    "doc:build": "father doc build",
+    "doc:deploy": "father doc deploy",
+    "test": "father test",
+    "test:coverage": "father test --coverage",
+    "prepublishOnly": "npm run test && npm run build && np --no-cleanup --yolo --no-publish"
+  },
+  "files": [
+    "lib",
+    "es",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://Simon-Bin@github.com/Simon-Bin/react-dragable.git"
+  },
+  "keywords": [
+    "react",
+    "drag",
+    "drop",
+    "npm"
+  ],
+  "author": "lvbin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Simon-Bin/react-dragable/issues"
+  },
+  "homepage": "https://github.com/Simon-Bin/react-dragable#readme",
+  "dependencies": {
+    "antd": "^3.26.11",
+    "classnames": "^2.2.6"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.9",
+    "@types/react": "^16.9.20",
+    "@types/react-dom": "^16.9.5",
+    "father": "^2.29.2",
+    "np": "^6.1.0",
+    "typescript": "^3.7.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

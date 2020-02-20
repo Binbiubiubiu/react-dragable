@@ -1,3 +1,8 @@
+# build
+.docz
+es/
+lib/
+
 # Logs
 logs
 *.log
