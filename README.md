@@ -2,6 +2,12 @@
 
 自己写的拖拽工具
 
+## 示例
+
+[![Edit currying-flower-l4cnq](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/currying-flower-l4cnq?fontsize=14&hidenavigation=1&theme=dark)
+
+## 代码片段
+
 ```tsx
 import React from "react";
 import "./App.css";
