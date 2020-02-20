@@ -162,6 +162,7 @@ export default class Dragable extends Component<DragableProps, DragableState> {
         {React.Children.map(children, (child) =>
           React.cloneElement(child as React.ReactElement, {
             style: {
+              ...(React.isValidElement(child) ? child.props.style : {}),
               width,
               height
             }
