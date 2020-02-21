@@ -63,4 +63,4 @@ export default App;
 
 ## 参考资料
 
-[rotate-resize]("https://github.com/ioslh/rotate-resize") 旋转拖拽算法
+[rotate-resize](https://github.com/ioslh/rotate-resize) 旋转拖拽算法
