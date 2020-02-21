@@ -1,3 +1,3 @@
-import Dragable from "./components/Dragable";
+import Dragable from "./Dragable";
 
 export default Dragable;

@@ -1,15 +1,42 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
-import Draggable from "react-dragable";
+import Dragable from "react-dragable";
 
-function App() {
-  return (
-    <div className="App">
-      <Draggable position={{ x: 100, y: 100 }} disabled={false}>
-        <div className="test-block">测试方块</div>
-      </Draggable>
-    </div>
-  );
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotate: number;
+}
+
+class App extends Component<{}, { rect: Rect }> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      rect: { width: 200, height: 200, x: 200, y: 200, rotate: 0 }
+    };
+  }
+
+  render() {
+    const { rect } = this.state;
+    return (
+      <div className="App">
+        <Dragable
+          rect={rect}
+          onChange={(rect) => {
+            this.setState((state) => ({
+              rect: {
+                ...state,
+                ...rect
+              }
+            }));
+          }}>
+          <div style={{ width: rect.width, height: rect.height, backgroundColor: "#f00" }}></div>
+        </Dragable>
+      </div>
+    );
+  }
 }
 
 export default App;

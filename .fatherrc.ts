@@ -3,7 +3,7 @@ import { IBundleOptions } from "father";
 const options: IBundleOptions = {
   entry: "src/index.ts",
   file: "react-dragable",
-  esm: { type: "babel", importLibToEs: true },
+  esm: "babel",
   cjs: "babel",
   umd: {
     name: "react-dragable",

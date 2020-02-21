@@ -1,0 +1,76 @@
+@dragable-color        : #f00;
+@dragable-active-border: 1px solid @dragable-color;
+
+
+@archor-size  : 10px;
+@archor-border: 1px solid @dragable-color ;
+
+
+.dragable {
+  position   : absolute;
+  user-select: none;
+  border     : 1px solid transparent;
+  box-sizing : border-box;
+}
+
+.dragable-active {
+  border: @dragable-active-border;
+}
+
+.archor {
+  position        : absolute;
+  width           : @archor-size;
+  height          : @archor-size;
+  margin-left     : -@archor-size/2;
+  margin-top      : -@archor-size/2;
+  background-color: #fff;
+  border          : @archor-border;
+  box-sizing      : border-box;
+}
+
+.archor-nw,
+.archor-n,
+.archor-ne {
+  top: 0;
+}
+
+.archor-sw,
+.archor-s,
+.archor-se {
+  top: 100%;
+}
+
+.archor-nw,
+.archor-w,
+.archor-sw {
+  left: 0;
+}
+
+.archor-ne,
+.archor-e,
+.archor-se {
+  left: 100%;
+}
+
+.archor-n,
+.archor-s {
+  left: 50%;
+}
+
+.archor-w,
+.archor-e {
+  top: 50%;
+}
+
+.archor-rotate {
+  position : absolute;
+  width    : 20px;
+  height   : 20px;
+  top      : -40px;
+  left     : 50%;
+  transform: translate3d(-50%, 0, 0);
+  color    : @dragable-color ;
+  fill     : currentColor;
+
+  cursor: pointer;
+}

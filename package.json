@@ -37,7 +37,6 @@
   },
   "homepage": "https://github.com/Simon-Bin/react-dragable#readme",
   "dependencies": {
-    "antd": "^3.26.11",
     "classnames": "^2.2.6"
   },
   "devDependencies": {
