@@ -13,14 +13,33 @@ import React from "react";
 import "./App.css";
 import Draggable from "react-dragable";
 
-function App() {
-  return (
-    <div className="App">
-      <Draggable position={{ x: 100, y: 100 }} disabled={false}>
-        <div className="test-block">test block</div>
-      </Draggable>
-    </div>
-  );
+class Scene extends Component<{}, { rect: Rect }> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      rect: { width: 200, height: 200, x: 200, y: 200, rotate: 0 }
+    };
+  }
+
+  render() {
+    const { rect } = this.state;
+    return (
+      <div className="scene">
+        <Dragable
+          rect={rect}
+          onChange={(rect) => {
+            this.setState((state) => ({
+              rect: {
+                ...state,
+                ...rect
+              }
+            }));
+          }}>
+          <div style={{ width: rect.width, height: rect.height, backgroundColor: "#f00" }}></div>
+        </Dragable>
+      </div>
+    );
+  }
 }
 
 export default App;
@@ -28,9 +47,20 @@ export default App;
 
 ## 属性
 
-| 名称     | 类型                | 描述       |
-| -------- | ------------------- | ---------- |
-| position | {x:number,y:number} | 初始化位置 |
-| width    | number              | 宽度       |
-| height   | number              | 高度       |
-| disabled | boolean             | 禁用拖拽   |
+| 名称 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| rect | Rect |      |
+
+### Rect
+
+| 名称   | 类型   | 描述     |
+| ------ | ------ | -------- |
+| x      | number | 横坐标   |
+| y      | number | 纵坐标   |
+| width  | number | 宽度     |
+| height | number | 高度     |
+| rotate | number | 旋转角度 |
+
+## 参考资料
+
+[rotate-resize]("https://github.com/ioslh/rotate-resize") 旋转拖拽算法
