@@ -41,6 +41,7 @@ const defaultProps = {};
 export type DragableProps = {
   rect: Rect;
   onChange: (rect: Rect) => void;
+  children: (rect: Rect) => React.ReactNode;
 } & Partial<typeof defaultProps>;
 
 export interface DragableState {}
@@ -148,7 +149,7 @@ class Dragable extends Component<DragableProps, DragableState> {
           height: rect.height,
           transform: `rotate(${rect.rotate}deg)`
         }}>
-        {children}
+        {React.isValidElement ? children : children(rect)}
         {ARCHOR.map((direct) => {
           return (
             <i

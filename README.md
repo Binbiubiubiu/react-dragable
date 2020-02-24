@@ -35,7 +35,10 @@ class Scene extends Component<{}, { rect: Rect }> {
               }
             }));
           }}>
-          <div style={{ width: rect.width, height: rect.height, backgroundColor: "#f00" }}></div>
+          {({ width, height }) => {
+            const computedStyle = { width, height, backgroundColor: "#f00" };
+            return <div style={computedStyle}></div>;
+          }}
         </Dragable>
       </div>
     );
@@ -47,9 +50,10 @@ export default App;
 
 ## 属性
 
-| 名称 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| rect | Rect |      |
+| 名称     | 类型                   | 描述 |
+| -------- | ---------------------- | ---- |
+| rect     | Rect                   |      |
+| children | (rect:Rect)=>ReactNode |      |
 
 ### Rect
 
