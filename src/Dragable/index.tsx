@@ -149,7 +149,7 @@ class Dragable extends Component<DragableProps, DragableState> {
           height: rect.height,
           transform: `rotate(${rect.rotate}deg)`
         }}>
-        {React.isValidElement ? children : children(rect)}
+        {React.isValidElement(children) ? children : children(rect)}
         {ARCHOR.map((direct) => {
           return (
             <i
