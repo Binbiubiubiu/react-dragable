@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="0.0.4-0"></a>
+## 0.0.4-0 (2020-02-24)
+
+### Added
+
+- 🔊 update CHANGELOG.md [[a100a00](https://github.com/Simon-Bin/react-dragable/commit/a100a005d02475f85fa75d54157388f187a9a651)]
+
+### Changed
+
+- ⚡ update children to render props [[247a987](https://github.com/Simon-Bin/react-dragable/commit/247a987f970fbc6598da77a5a1c3e70e28afcb71)]
+
+### Miscellaneous
+
+-  v0.0.4-0 [[25613bf](https://github.com/Simon-Bin/react-dragable/commit/25613bf21c0cf0516e432913cc211d564255e416)]
+- 📝 update README.md [[725c25f](https://github.com/Simon-Bin/react-dragable/commit/725c25fac92468c629520972990b609772157930)]
+
+
 <a name="0.0.3"></a>
 
 ## 0.0.3 (2020-02-21)

@@ -32,7 +32,7 @@ class App extends Component<{}, { rect: Rect }> {
               }
             }));
           }}>
-          <div style={{ width: rect.width, height: rect.height, backgroundColor: "#f00" }}></div>
+          {({ width, height }) => <div style={{ width, height, backgroundColor: "#f00" }}></div>}
         </Dragable>
       </div>
     );
